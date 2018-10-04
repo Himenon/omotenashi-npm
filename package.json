@@ -1,0 +1,15 @@
+{
+  "name": "omotenashi-npm",
+  "version": "1.0.0",
+  "description": "おもてなしnpmパッケージ",
+  "main": "lib/index.js",
+  "repository": "https://gihub.com/Himenon/omotenashi-npm",
+  "author": "Himenon",
+  "scripts": {
+    "slide:serve": "cd slide && bs serve ."
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "backslide": "^2.3.2"
+  }
+}
