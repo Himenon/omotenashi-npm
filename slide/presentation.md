@@ -552,22 +552,71 @@ npm run build
 
 # 何を・どうやって実装するか？
 
-* vscodeの仕組みをフルに使う
 * package.jsonの仕組みをフルに使う
+* vscodeの仕組みをフルに使う
 * 世の中にある便利なライブラリをフルに使う
 
-.col-4[
-![vscodeで怒られている様子](./images/vscode-1.png)<br>
-<span style="color: red;">**真っ赤**</span>
-]
 .col-4[
 ![npmiしたとき](./images/npm-1.png)<br>
 `npm i`をしたとき
 ]
+.col-4[
+![vscodeで怒られている様子](./images/vscode-1.png)<br>
+<span style="color: red;">**真っ赤**</span>
+]
 
 ---
 
-# 実際の開発現場レベルにする
+# package.jsonの充実化
+
+<https://docs.npmjs.com/files/package.json>
+
+<small>
+```json
+{
+  "repository": "git@github.com:Himenon/omotenashi-npm.git",
+  "engines" : {
+    "node" : "<=v6.4.0",
+    "npm": "<=6.4.0"
+  },
+  "os" : [ "darwin", "linux", "!win32" ]
+}
+```
+</small>
+
+---
+
+# npmrc
+
+<https://docs.npmjs.com/files/npmrc>
+
+* package.jsonに書いたルールを強制させる
+* [project毎のnpmコマンドをいい感じにするnpmrc & config達 \- Qiita](https://qiita.com/terrierscript/items/86dbfd26abe6905756c0)
+
+---
+
+# es6対応
+
+vscodeが起こる理由
+
+---
+
+# 開発をサポートするライブラリ
+
+圧倒的な効率化を図ることができる
+
+* [prettier](https://github.com/prettier/prettier)
+* [commitlint](https://github.com/marionebl/commitlint)
+* [pre-commit](https://github.com/observing/pre-commit)
+* [cspell](https://github.com/Jason3S/cspell)
+* [dependency-cruiser](https://github.com/sverweij/dependency-cruiser)
+* [danger-js](https://github.com/danger/danger-js)
+* [node-install-local](https://github.com/nicojs/node-install-local)
+* [TypeScript](https://github.com/Microsoft/TypeScript)
+
+---
+
+# 実際の開発現場レベルにするには
 
 もっと知りたい人向け
 
