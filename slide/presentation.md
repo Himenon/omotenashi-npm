@@ -95,31 +95,55 @@ npm install -g web2pdf
 
 ---
 
-# まずは作りましょう
+class: impact
 
-## お題
+# お題
+## RLを入力するとサイトタイトルを取得するCLI
 
-* URLを入力するとサイトタイトルを取得するCLI
-
-```bash
-npm init
-```
+まずは作ってみる
 
 ---
 
-# ディレクトリ構成
+# まずは作りましょう
+
+.col-3[
+初期化
+```bash
+npm init
+```
+]
+.col-9[
+<small>
+```json
+{
+  "name": "get-title",
+  "version": "1.0.0",
+  "description": "URLを入力するとサイトタイトルを取得するCLI",
+  "main": "./main.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Himenon",
+  "license": "MIT",
+}
+```
+</small>
+]
+
+---
+
+# <small>CLI用のエントリーポイントを置く</small>
 
 ```txt
-get-site-title
+get-title
 ├── bin
-│   └── cli.js
+│   └── cli.js   // ここ
 └── package.json
 ```
 
 ---
 
-
-# package.json
+# package.jsonにエンリーポイントを記述する
 
 CLI化するポイント
 
@@ -135,22 +159,40 @@ CLI化するポイント
 
 # シンプルに作る
 
+<small>
 ```js
-# bin/cli.js
+// ./bin.cli.js
+#!/usr/bin/env node
 function main(url) {
   console.log(url);
 }
 main(process.argv[2]);
 ```
+</small>
 
 試してみる
 
+<small>
 ```sh
 $ node ./bin/cli.js https://github.com
 https://github.com
 ```
+</small>
 
 `process.argv=["node", "./bin/cli.js", "https://github.com"]`
+
+---
+
+# ローカルにインストールしてみる
+
+```sh
+npm i -g .
+```
+
+```
+$ get-title https://github.com
+https://github.com
+```
 
 ---
 
@@ -205,7 +247,7 @@ main.getSiteTitle(process.argv[2]);
 # 整理
 
 ```txt
-get-site-title
+get-title
 ├── bin
 │   └── cli.js       # CLIのエントリーポイント
 ├── main.js          # メインロジック
@@ -217,7 +259,7 @@ get-site-title
 # テストを書く
 
 ```txt
-get-site-title
+get-title
 ├── bin
 │   └── cli.js       # CLIのエントリーポイント
 ├── main.js          # メインロジック
