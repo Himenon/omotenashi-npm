@@ -185,14 +185,27 @@ https://github.com
 
 # ローカルにインストールしてみる
 
+<small>
 ```sh
 npm i -g .
 ```
 
-```
+```sh
 $ get-title https://github.com
 https://github.com
 ```
+</small>
+
+`npm link`を叩くとどこにインストールされているかわかります。
+
+<small>
+```txt
+/usr/local/bin/get-title -> /usr/local/lib/node_modules/get-title/bin/cli.js
+/usr/local/lib/node_modules/get-title -> /path/to/get-title
+```
+</small>
+
+* https://docs.npmjs.com/cli/link
 
 ---
 
@@ -237,6 +250,7 @@ exports.getSiteTitle = getSiteTitle;
 
 ```js
 // ./bin/cli.js
+#!/usr/bin/env node
 const main = require('../main');
 
 main.getSiteTitle(process.argv[2]);
@@ -312,7 +326,7 @@ npm run test
 // main.js
 function getSiteTitle(url) {
 -  console.log(url);
-+  return "The world’s leading software development platform · GitHub"";
++  return 'The world’s leading software development platform · GitHub';
 }
 
 exports.getSiteTitle = getSiteTitle;
@@ -357,11 +371,9 @@ test('http://example.com/', () => {
 
 .col-6[
 * 今のままだと落ちます
-* 原因：ただ値を返しているから
-* → テストは、「なぜ」を発見する
 ]
 .col-6[
-  <small>![example.comのテスト](./images/test-2.png)</small>
+  <img src="./images/test-2.png" alt="example.comのテスト" style="height: 250px;">
 ]
 
 ---
@@ -408,7 +420,7 @@ exports.getSiteTitle = getSiteTitle;
 ```sh
   npm run test
 ```
-* 一発で通過します。
+* テストが通過します
 ]
 .col-6[
   <img src="./images/test-3.png" alt="puppeteer導入後のテスト" style="height: 250px;">
@@ -418,8 +430,11 @@ exports.getSiteTitle = getSiteTitle;
 
 # CLIの修正をする
 
+`bin/cli.js`
+
 <small>
 ```diff
+#!/usr/bin/env node
 const main = require('../main');
 
 - main.getSiteTitle(process.argv[2]);
@@ -430,16 +445,32 @@ const main = require('../main');
 ```
 </small>
 
-動作確認
-
-```
-$ node ./bin/cli.js https://github.com
-The world’s leading software development platform · GitHub
-```
+動作確認を忘れずに。
 
 ---
 
-# <small>作ったライブラリで「おもてなし」をしよう</small>
+# 公開する
+
+ざっくりといえば、次の手順を踏めば公開できます。
+
+1. <https://www.npmjs.com/>に行き、ユーザー登録をする
+2. ローカルで`npm login`をして認証を通す
+3. 公開したいライブラリの`package.json`がある位置で`npm run publish`を実行
+
+※ 今回は行いません。
+
+---
+
+class: impact
+
+# おもてなしを実装
+## これで終わりではない。
+
+ここからが本番
+
+---
+
+# <small>作ったライブラリに「おもてなし」を実装しよう</small>
 
 <div style="height: 1em"></div>
 
@@ -464,45 +495,81 @@ The world’s leading software development platform · GitHub
 
 # ユーザーに対するおもてなし
 
-**最高なUX**
+**最高のUX**
 
+.col-6[
+## インストール
+<small>
 ```bash
 npm install [package]
 ```
+</small>
+]
+.col-6[
+## 動くサンプルコード
+<small>
+```js
+const hoge = require('hoge')
+hoge();
+```
+</small>
+]
 
 ---
 
-# <small>開発者に対するおもてなし - 開発環境の構築方法</small>
+# 開発者に対するおもてなし
 
-**最高なUX**
+**最高のUX**
 
+.col-4[
+## 環境構築
+<small>
 ```bash
 git clone [repository]
 npm install
 npm start
 ```
-
-`prepare`, `preinstall`
-
----
-
-# <small>開発者に対するおもてなし - テストの方法</small>
-
-**最高なUX**
-
+</small>
+]
+.col-4[
+## テスト
+<small>
 ```bash
 npm run test
 ```
+</small>
+]
+.col-4[
+## ビルド
+<small>
+```bash
+npm run build
+```
+</small>
+]
 
 ---
 
-# <small>開発者に対するおもてなし - package.json</small>
+# 何を・どうやって実装するか？
+
+* vscodeの仕組みをフルに使う
+* package.jsonの仕組みをフルに使う
+* 世の中にある便利なライブラリをフルに使う
+
+.col-4[
+![vscodeで怒られている様子](./images/vscode-1.png)<br>
+<span style="color: red;">**真っ赤**</span>
+]
+.col-4[
+![npmiしたとき](./images/npm-1.png)<br>
+`npm i`をしたとき
+]
 
 ---
 
 # 実際の開発現場レベルにする
 
-※ ここからレベルが上がります
+もっと知りたい人向け
 
 - CI/CD
 - 文法チェック
