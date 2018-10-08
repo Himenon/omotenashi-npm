@@ -1,6 +1,6 @@
-const puppeteer = require('puppeteer');
+import * as puppeteer from 'puppeteer';
 
-async function getTitle(url) {
+export async function getTitle(url: string) {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   await page.goto(url);
@@ -8,5 +8,3 @@ async function getTitle(url) {
   await browser.close();
   return title;
 }
-
-exports.getTitle = getTitle;

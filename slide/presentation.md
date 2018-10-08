@@ -241,11 +241,11 @@ main(process.argv[2]); // ここが走ってしまう
 
 ```js
 // ./main.js
-function getSiteTitle(url) {
+function getTitle(url) {
   console.log(url);
 }
 
-exports.getSiteTitle = getSiteTitle;
+exports.getTitle = getTitle;
 ```
 
 ```js
@@ -253,7 +253,7 @@ exports.getSiteTitle = getSiteTitle;
 #!/usr/bin/env node
 const main = require('../main');
 
-main.getSiteTitle(process.argv[2]);
+main.getTitle(process.argv[2]);
 ```
 
 ---
@@ -320,16 +320,16 @@ npm run test
 
 # テストできるコードにする
 
-`getSiteTitle`の返り値を指定する
+`getTitle`の返り値を指定する
 
 ```diff
 // main.js
-function getSiteTitle(url) {
+function getTitle(url) {
 -  console.log(url);
 +  return 'The world’s leading software development platform · GitHub';
 }
 
-exports.getSiteTitle = getSiteTitle;
+exports.getTitle = getTitle;
 ```
 
 ---
@@ -340,9 +340,9 @@ exports.getSiteTitle = getSiteTitle;
 ```js
 const main = require('../main');
 
-describe('getSiteTitleのテスト', () => {
+describe('getTitleのテスト', () => {
   test('https://github.com/', () => {
-    const title = main.getSiteTitle('https://github.com/');
+    const title = main.getTitle('https://github.com/');
     expect(title).toEqual('The world’s leading software development platform · GitHub');
   });
 });
@@ -363,7 +363,7 @@ describe('getSiteTitleのテスト', () => {
 <small>
 ```js
 test('http://example.com/', () => {
-  const title = main.getSiteTitle('http://example.com/');
+  const title = main.getTitle('http://example.com/');
   expect(title).toEqual("Example Domain");
 });
 ```
@@ -397,7 +397,7 @@ npm i puppeteer
 ```js
 const puppeteer = require('puppeteer');
 
-async function getSiteTitle(url) {
+async function getTitle(url) {
   const browser = await puppeteer.launch(); // puppeteerの起動
   const page = await browser.newPage();     // ブラウザタブの用意
   await page.goto(url);                     // 指定したURLを開く
@@ -406,7 +406,7 @@ async function getSiteTitle(url) {
   return title;                             // タイトルを返す
 }
 
-exports.getSiteTitle = getSiteTitle;
+exports.getTitle = getTitle;
 ```
 </small>
 
@@ -437,9 +437,9 @@ exports.getSiteTitle = getSiteTitle;
 #!/usr/bin/env node
 const main = require('../main');
 
-- main.getSiteTitle(process.argv[2]);
+- main.getTitle(process.argv[2]);
 + (async() => {
-+   const title = await main.getSiteTitle(process.argv[2]);
++   const title = await main.getTitle(process.argv[2]);
 +   console.log(title);
 + })();
 ```
@@ -608,6 +608,7 @@ vscodeが起こる理由
 * [prettier](https://github.com/prettier/prettier)
 * [commitlint](https://github.com/marionebl/commitlint)
 * [pre-commit](https://github.com/observing/pre-commit)
+* [lint-staged](https://github.com/okonet/lint-staged)
 * [cspell](https://github.com/Jason3S/cspell)
 * [dependency-cruiser](https://github.com/sverweij/dependency-cruiser)
 * [danger-js](https://github.com/danger/danger-js)
