@@ -6,6 +6,7 @@
   "repository": "https://gihub.com/Himenon/omotenashi-npm",
   "author": "Himenon",
   "scripts": {
+    "start": "npm run slide:serve",
     "slide:serve": "cd slide && bs serve ."
   },
   "license": "MIT",

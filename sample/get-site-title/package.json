@@ -1,0 +1,25 @@
+{
+  "name": "get-site-title",
+  "version": "1.0.0",
+  "description": "URLを入力するとサイトタイトルを取得するCLI",
+  "main": "./main.js",
+  "scripts": {
+    "start": "npm run cli",
+    "cli": "node ./bin/cli.js https://github.com",
+    "test": "jest"
+  },
+  "keywords": [
+    "cli"
+  ],
+  "author": "Himenon",
+  "license": "MIT",
+  "bin": {
+    "get-title": "./bin/cli.js"
+  },
+  "devDependencies": {
+    "jest": "^23.6.0"
+  },
+  "dependencies": {
+    "puppeteer": "^1.9.0"
+  }
+}
