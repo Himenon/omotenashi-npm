@@ -567,9 +567,31 @@ npm run build
 
 ---
 
-# package.jsonの充実化
+# package.jsonの充実化 その1
+<small>
+```json
+{
+  "scripts": {
+    "start": "run-p *:watch",
+    "clean": "rimraf lib",
+    "prebuild": "npm run clean",
+    "build": "babel src --out-dir lib --ignore \"src/__tests__/*.test.js\"",
+    "build:watch": "npm run build -- --watch",
+    "doc": "npx esdoc",
+    "lint": "npx eslint src/**/*.js",
+    "lint:fix": "npx eslint --fix \"src/**/*.js\"",
+    "test": "jest",
+    "test:jest": "jest",
+    "test:watch": "npm run test:jest -- --watch",
+    "prettier": "prettier --write \"**/*.{js,jsx,ts,tsx,css}\""
+  }
+}
+```
+</small>
 
-<https://docs.npmjs.com/files/package.json>
+---
+
+# package.jsonの充実化 その2
 
 <small>
 ```json
@@ -579,47 +601,189 @@ npm run build
     "node" : "<=v6.4.0",
     "npm": "<=6.4.0"
   },
-  "os" : [ "darwin", "linux", "!win32" ]
+  "os" : [ "darwin", "linux", "!win32" ],
+  "directories": {
+    "lib": "lib",
+    "example": "sample"
+  },
+  "typing": "./lib/index.d.ts"
 }
 ```
 </small>
 
----
-
-# npmrc
-
-<https://docs.npmjs.com/files/npmrc>
-
-* package.jsonに書いたルールを強制させる
-* [project毎のnpmコマンドをいい感じにするnpmrc & config達 \- Qiita](https://qiita.com/terrierscript/items/86dbfd26abe6905756c0)
+<https://docs.npmjs.com/files/package.json>
 
 ---
 
-# es6対応
+# .npmrc / .npmignore
 
-vscodeが起こる理由
+環境設定を迷わせない
+
+<small>
+* .npmrc
+  * プロジェクトの構成管理
+
+* .npmignore
+    * `npm pack`や`npm publish`ときにignoreするファイル
+    * .gitignoreと同じ規則
+        * 開発で必要だけど、publishに不要なものを除外するときに使う
+
+* https://docs.npmjs.com/files/npmrc
+* https://docs.npmjs.com/misc/developers
+
+</small>
 
 ---
 
-# 開発をサポートするライブラリ
+# トランスパイル
 
-圧倒的な効率化を図ることができる
+新しい文法を使いつつ、後方互換性を保つ
 
+* babelを使う
+    * 最新の構文が対応していない場合が往々にしてある
+
+* <https://kangax.github.io/compat-table/>
+
+---
+
+# Linter / Prettier
+
+<small>
+「インデント」や「シングル・ダブルクォート」の議論は不毛
+
+* [eslint](https://github.com/eslint/eslint) / [tslint](https://github.com/palantir/tslint)
+* 構文の整形(矯正)
+    * 本質的な議論に集中することができる
 * [prettier](https://github.com/prettier/prettier)
-* [commitlint](https://github.com/marionebl/commitlint)
-* [pre-commit](https://github.com/observing/pre-commit)
-* [lint-staged](https://github.com/okonet/lint-staged)
-* [cspell](https://github.com/Jason3S/cspell)
-* [dependency-cruiser](https://github.com/sverweij/dependency-cruiser)
-* [danger-js](https://github.com/danger/danger-js)
-* [node-install-local](https://github.com/nicojs/node-install-local)
-* [TypeScript](https://github.com/Microsoft/TypeScript)
+    * 対象となる形式がいろいろ。eslint、tslintと併用する。
+
+```bash
+eslint --fix src/**/*.js
+
+tslint -c tslint.json -p tsconfig.json --fix
+```
+
+設定で困ったら`"eslint:recommended"`、`"tslint:recommended"`を使う。
+</small>
 
 ---
 
-# 実際の開発現場レベルにするには
+# 型 TypesScript / FlowType
 
-もっと知りたい人向け
+型はカンニングシート
+
+<small>
+.col-6[
+## Pros
+
+* 型安全
+* vscodeと相性がいい
+* JSを含むプロジェクトでも利用可
+]
+.col-6[
+## Cons
+
+* 慣れが必要
+* 環境構築
+]
+
+.col-12[
+* プロジェクトをどちらに寄せたとしても、OSSを利用しているとどちらも目にする
+* TypeScriptはpackage.jsonに型定義ファイルの参照先（`types`）だけ配置することが可能
+]
+</small>
+
+---
+
+# <small>サンプルコード</small>
+
+動くコードが真
+
+.col-6[
+<small>
+```txt
+get-title
+├── package.json
+├── src
+│   ├── cli.ts
+│   └── main.ts
+└── sample
+    ├── package.json // ここから親のpackageをinstallする
+    ├── src
+    └── tsconfig.json
+```
+</small>
+]
+.col-6[
+<small>
+```json
+// package.json
+"dependencies": {
+  "get-title": "file:.."
+}
+```
+</small>
+]
+.col-12[
+<small>ビルドした後に、dependenciesを直で書いてインストールする</small>
+]
+
+---
+
+# 依存関係を確認する
+
+「孤立したコード」や「循環参照」している箇所などをあぶり出す。構造的に不安定なところを検知する
+
+<https://github.com/sverweij/dependency-cruiser>
+
+![依存関係のグラフ](./images/dependencygraph.svg)
+
+参考：[dependency\-cruiserを使って依存関係を検証し潜在的なバグを潰す \- Qiita](https://qiita.com/akameco/items/e11023a59026c319b91b)
+
+
+---
+
+# ドキュメント
+
+.col-6[
+自動生成する
+
+* [esdoc](https://esdoc.org/) / [typedoc](https://typedoc.org/)
+
+```bash
+# esdoc
+esdoc
+# typedoc
+typedoc --out ./docs/ ./src
+```
+]
+.col-6[
+<img src="./images/typedoc.png" style="height: 250px;">
+]
+
+---
+
+class: impact
+
+# まとめ
+
+時間が余ればサンプルコードで解説します
+
+---
+
+# まとめ
+
+* 利用者に対してのおもてなし
+  * README
+  * サンプルコード
+  * ドキュメント
+* 開発者に対してのおもてなし
+  * テスト
+  * npm `start / test / build`
+
+---
+
+# もっとおもてなししたい
 
 - CI/CD
 - 文法チェック
@@ -630,9 +794,47 @@ vscodeが起こる理由
 
 ---
 
-# まとめ
+# 開発をサポートするライブラリ
 
-* 最小限のコマンドで開発できるようにする
-* 暗黙的より明示的であるほうが良い
-* 便利なツールを使う
-* 自動化を行う
+紹介しきれないので、リンクだけ
+<small>
+.col-6[
+* [commitlint](https://github.com/marionebl/commitlint)
+* [pre-commit](https://github.com/observing/pre-commit)
+* [lint-staged](https://github.com/okonet/lint-staged)
+* [cspell](https://github.com/Jason3S/cspell)
+* [dependency-cruiser](https://github.com/sverweij/dependency-cruiser)
+* [danger-js](https://github.com/danger/danger-js)
+* [node-install-local](https://github.com/nicojs/node-install-local)
+]
+.col-6[
+* [meow](https://github.com/sindresorhus/meow)
+* [chalk](https://github.com/chalk/chalk)
+* [generate-changelog](https://github.com/lob/generate-changelog)
+* [chokidar](https://github.com/paulmillr/chokidar)
+* [opn](https://github.com/sindresorhus/opn)
+* [portfinder](https://github.com/indexzero/node-portfinder)
+* [update-notifier](https://github.com/yeoman/update-notifier)
+* [jest-puppeteer](https://github.com/smooth-code/jest-puppeteer)
+]
+</small>
+
+探せばたくさん出てきます。
+
+---
+
+# 最後に
+
+* 小さいうちに先手を打つこと
+    * 後から導入するものが大変なものもある
+* 開発のUXを損ねないように、ドキュメントの整備を行う
+    * 暗黙的に使うコマンドに処理をフックさせておくのも手
+
+* コードの保守がもっとも大変。
+    * 便利なツールをどんどん使って試していく
+
+---
+
+class: impact
+
+# おわり
