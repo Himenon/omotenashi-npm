@@ -1,3 +1,8 @@
+dist
+build
 lib
 coverages
 node_modules
+coverage
+private_npm_cache
+.env*

@@ -1,14 +1,16 @@
 {
   "extends": [
     "tslint:recommended",
-    "tslint-plugin-prettier"
+    "tslint-config-prettier",
   ],
+  "rulesDirectory": ["tslint-plugin-prettier"],
   "linterOptions": {
     "exclude": [
       "node_modules/**/*.ts"
     ]
   },
   "rules": {
+    "prettier": true,
     "no-string-throw": true,
     "no-unused-expression": true,
     "no-duplicate-variable": true,
@@ -19,16 +21,5 @@
     "max-line-length": [true, {"limit": 140, "ignore-pattern": "^import |^export {(.*?)}"}],
     "interface-name": false,
     "semicolon": true
-  },
-  "prettier": [true, {
-    "useTabs": false,
-    "printWidth": 140,
-    "tabWidth": 2,
-    "singleQuote": true,
-    "trailingComma": "all",
-    "jsxBracketSameLine": false,
-    "parser": "typescript",
-    "bracketSpacing": true,
-    "semi": true
-  }]
+  }
 }

@@ -4,14 +4,16 @@
   "description": "URLを入力するとサイトタイトルを取得するCLI",
   "main": "./lib/main.js",
   "scripts": {
-    "start": "npm run cli",
+    "start": "yarn run cli",
     "cli": "node ./bin/cli.js https://github.com",
     "test": "jest -c ./jest.config.json --detectOpenHandles",
-    "build": "npm run clean && tsc -p tsconfig.json",
+    "prebuild": "yarn run clean",
+    "build": "tsc -p tsconfig.build.json",
     "lint": "tslint -c tslint.json -p tsconfig.json",
-    "lint:fix": "npm run lint -- --fix",
+    "lint:fix": "yarn run lint -- --fix",
     "clean": "rimraf lib",
-    "format": "prettier --write src/**/*.ts src/**/*.tsx && npm run lint:fix"
+    "format": "yarn run prettier && yarn run lint:fix",
+    "prettier": "prettier --write src/**/*.ts src/**/*.tsx"
   },
   "keywords": [
     "cli"
@@ -20,6 +22,28 @@
   "license": "MIT",
   "bin": {
     "get-title": "./lib/cli.js"
+  },
+  "prettier": {
+    "useTabs": false,
+    "printWidth": 140,
+    "tabWidth": 2,
+    "singleQuote": true,
+    "trailingComma": "all",
+    "jsxBracketSameLine": false,
+    "parser": "typescript",
+    "bracketSpacing": true,
+    "semi": true
+  },
+  "husky": {
+    "hooks": {
+      "precommit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,css}": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "devDependencies": {
     "@types/jest": "^23.3.4",
@@ -31,6 +55,7 @@
     "rimraf": "^2.6.2",
     "ts-jest": "^23.10.4",
     "tslint": "^5.11.0",
+    "tslint-config-prettier": "^1.15.0",
     "tslint-plugin-prettier": "^2.0.0",
     "typescript": "^3.1.1"
   },
@@ -40,5 +65,9 @@
   "engines": {
     "node": "<=9.8.0",
     "npm": "<=6.4"
+  },
+  "directories": {
+    "lib": "lib",
+    "example": "sample"
   }
 }
