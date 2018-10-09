@@ -21,9 +21,7 @@
     "strictNullChecks": true,
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true,
-    "baseUrl": "./",
-    "noLib": false,
-    "declaration": true
+    "baseUrl": "./"
   },
   "include": [
     "src/**/*.ts"

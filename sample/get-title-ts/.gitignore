@@ -6,3 +6,5 @@ node_modules
 coverage
 private_npm_cache
 .env*
+*.tgz
+*.log
