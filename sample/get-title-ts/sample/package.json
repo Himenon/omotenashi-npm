@@ -4,8 +4,7 @@
   "description": "get-titleのサンプル",
   "main": "src/main.ts",
   "scripts": {
-    "start": "ts-node ./src/hello.ts",
-    "test": "jest"
+    "start": "ts-node ./src/hello.ts"
   },
   "keywords": [
     "test"

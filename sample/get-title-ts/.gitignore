@@ -8,3 +8,4 @@ private_npm_cache
 .env*
 *.tgz
 *.log
+docs

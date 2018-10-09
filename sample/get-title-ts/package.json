@@ -5,14 +5,17 @@
   "main": "./lib/main.js",
   "typing": "./lib/main.d.ts",
   "scripts": {
-    "start": "run-p watch:*",
+    "start": "run-p *:watch",
     "cli": "node ./bin/cli.js https://github.com",
     "test": "jest -c ./jest.config.json --detectOpenHandles",
+    "test:watch": "yarn run test -- --watch",
     "prebuild": "yarn run clean",
+    "cruiser": "dependency-cruiser --validate .dependency-cruiser.json --ts-config=./tsconfig.json src",
+    "cruiser:image": "depcruise --exclude \"^node_modules\" --output-type dot src | dot -T svg > dependencygraph.svg",
     "build": "tsc -p tsconfig.build.json",
-    "watch:test": "yarn run test -- --watch",
-    "watch:build": "yarn run build -- --watch",
-    "lint": "tslint -c tslint.json -p tsconfig.json",
+    "build:watch": "yarn run build -- --watch",
+    "doc": "npx typedoc --out ./docs/ ./src",
+    "lint": "npx tslint -c tslint.json -p tsconfig.json",
     "lint:fix": "yarn run lint -- --fix",
     "tslint-check": "tslint-config-prettier-check ./tslint.json",
     "clean": "rimraf lib",
@@ -41,6 +44,7 @@
   "devDependencies": {
     "@types/jest": "^23.3.4",
     "@types/puppeteer": "^1.9.0",
+    "dependency-cruiser": "^4.6.0",
     "jest": "^23.6.0",
     "jest-cli": "^23.6.0",
     "lint-staged": "^7.3.0",
@@ -51,6 +55,7 @@
     "tslint": "^5.11.0",
     "tslint-config-prettier": "^1.15.0",
     "tslint-plugin-prettier": "^2.0.0",
+    "typedoc": "^0.12.0",
     "typescript": "^3.1.1"
   },
   "dependencies": {
