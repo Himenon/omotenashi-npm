@@ -10,5 +10,8 @@
         "ecmaVersion": 7,
         "sourceType": "module"
     },
-    "rules": {}
+    "rules": {
+        "semi": "error",
+        "indent": ["error", 2]
+    }
 }

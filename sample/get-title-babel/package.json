@@ -1,0 +1,60 @@
+{
+  "name": "get-title-babel",
+  "version": "1.0.0",
+  "description": "URLを入力するとサイトタイトルを取得するCLI",
+  "main": "./lib/main.js",
+  "scripts": {
+    "start": "npm run cli",
+    "cli": "node ./bin/cli.js https://github.com",
+    "clean": "rimraf lib",
+    "prebuild": "npm run clean",
+    "build": "babel src --out-dir lib --ignore \"src/__tests__/*.test.js\"",
+    "build:watch": "npm run build -- --watch",
+    "lint": "eslint main.js",
+    "test": "jest",
+    "test:jest": "jest",
+    "test:watch": "npm run test:jest -- --watch",
+    "prettier": "prettier --write \"**/*.{js,jsx,ts,tsx,css}\""
+  },
+  "keywords": [
+    "cli"
+  ],
+  "author": "Himenon",
+  "license": "MIT",
+  "bin": {
+    "get-title": "./bin/cli.js"
+  },
+  "prettier": {
+    "singleQuote": false,
+    "printWidth": 140,
+    "tabWidth": 2
+  },
+  "husky": {
+    "hooks": {
+      "precommit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,css}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.1.2",
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-eslint": "^10.0.1",
+    "babel-jest": "^23.6.0",
+    "eslint": "^5.6.1",
+    "husky": "^1.1.1",
+    "jest": "^23.6.0",
+    "lint-staged": "^7.3.0",
+    "prettier": "^1.14.3",
+    "rimraf": "^2.6.2"
+  },
+  "dependencies": {
+    "puppeteer": "^1.9.0"
+  }
+}
