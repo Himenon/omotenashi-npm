@@ -7,7 +7,8 @@
   "author": "Himenon",
   "scripts": {
     "start": "npm run slide:serve",
-    "slide:serve": "cd slide && bs serve ."
+    "slide:serve": "cd slide && bs serve .",
+    "export:pdf": "cd slide && bs pdf"
   },
   "license": "MIT",
   "devDependencies": {
