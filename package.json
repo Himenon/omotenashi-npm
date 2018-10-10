@@ -13,5 +13,8 @@
   "license": "MIT",
   "devDependencies": {
     "backslide": "^2.3.2"
+  },
+  "directories": {
+    "example": "sample"
   }
 }

@@ -45,6 +45,12 @@ version 1.0.0
 
 * https://github.com/Himenon/omotenashi-npm
 
+[sample](https://github.com/Himenon/omotenashi-npm/tree/master/sample)以下に3つ用意してあります
+
+* get-title
+* get-title-babel
+* get-title-ts
+
 ---
 
 # 開発環境について
@@ -316,7 +322,7 @@ describe('メインロジックのテスト', () => {
 # テストの動作確認
 
 ```sh
-npm run test
+npm test
 ```
 
 ![テストの動作確認](./images/main-test.png)
@@ -357,7 +363,7 @@ describe('getTitleのテスト', () => {
 </small>
 
 .col-6[
-  `npm run test`で確認する
+  `npm test`で確認する
 ]
 .col-6[
   ![Githubのタイトル取得のテスト](./images/test-1.png)
@@ -425,7 +431,7 @@ exports.getTitle = getTitle;
 
 .col-6[
 ```sh
-  npm run test
+  npm test
 ```
 * テストが通過します
 ]
@@ -542,7 +548,7 @@ npm start
 ## テスト
 <small>
 ```bash
-npm run test
+npm test
 ```
 </small>
 ]
@@ -805,11 +811,13 @@ class: impact
 # もっとおもてなししたい
 
 - CI/CD
+  - [travis-ci](https://docs.travis-ci.com/user/languages/javascript-with-nodejs/)
 - 文法チェック
 - フォーマッタ
 - コミットフォーマッタ
 - TypeScript
 - マルチパッケージ管理
+  - [lerna](https://github.com/lerna/lerna)
 
 ---
 
