@@ -5,11 +5,11 @@
 ※ npmには未公開のため、ローカルにcloneしてきてインストールを行う。
 
 ```
-npm i . -g
+yarn i . -g
 ```
 
 ```sh
-npm install -g Himenon/omotenashi-npm#master
+yarn install -g [このプロジェクト]
 ```
 
 ## 使い方

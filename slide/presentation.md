@@ -14,6 +14,8 @@ class: impact
 # {{title}}
 ## @Himenon
 
+version 1.0.0
+
 ---
 
 # 自己紹介
@@ -32,11 +34,16 @@ class: impact
 
 # 今日話すこと
 
-1. 開発環境について
-2. npmライブラリとは
-3. まずは作ってみましょう
-4. 「おもてなし」とは
-5. 実際の開発現場レベルにする
+* 開発環境について
+* npmライブラリとは
+* npmライブラリを作ってみる
+* 「おもてなし」を実装していく
+
+---
+
+# サンプルコード
+
+* https://github.com/Himenon/omotenashi-npm
 
 ---
 
@@ -378,7 +385,7 @@ test('http://example.com/', () => {
 
 ---
 
-# <small>テストが通過するように実際のロジックを書こう</small>
+# <small>テストが通過するように実際のロジックを書く</small>
 
 Headless Chromeの[puppeteer](https://github.com/GoogleChrome/puppeteer)を使う
 
@@ -567,6 +574,19 @@ npm run build
 
 ---
 
+# おもてなしリスト
+
+* package.jsonの充実化
+* サンプルコードを設置する
+* .npmrc / .npmignoreを使う
+* babelによるトランスパイル
+* Linter / Prettier
+* 型 TypesScript / FlowType
+* ドキュメントを用意する
+* 依存関係を監視する
+ 
+---
+
 # package.jsonの充実化 その1
 <small>
 ```json
@@ -575,7 +595,7 @@ npm run build
     "start": "run-p *:watch",
     "clean": "rimraf lib",
     "prebuild": "npm run clean",
-    "build": "babel src --out-dir lib --ignore \"src/__tests__/*.test.js\"",
+    "build": "babel src --out-dir lib --ignore 'src/__tests__/*.test.js'",
     "build:watch": "npm run build -- --watch",
     "doc": "npx esdoc",
     "lint": "npx eslint src/**/*.js",
@@ -615,6 +635,41 @@ npm run build
 
 ---
 
+# <small>サンプルコード</small>
+
+動くコードが真
+
+.col-6[
+<small>
+```txt
+get-title
+├── package.json
+├── src
+│   ├── cli.ts
+│   └── main.ts
+└── sample
+    ├── package.json // ここから親のpackageをinstallする
+    ├── src
+    └── tsconfig.json
+```
+</small>
+]
+.col-6[
+<small>
+```json
+// package.json
+"dependencies": {
+  "get-title": "file:.."
+}
+```
+</small>
+]
+.col-12[
+<small>ビルドした後に、dependenciesを直で書いてインストールする</small>
+]
+
+---
+
 # .npmrc / .npmignore
 
 環境設定を迷わせない
@@ -635,7 +690,7 @@ npm run build
 
 ---
 
-# トランスパイル
+# babelによるトランスパイル
 
 新しい文法を使いつつ、後方互換性を保つ
 
@@ -695,54 +750,6 @@ tslint -c tslint.json -p tsconfig.json --fix
 
 ---
 
-# <small>サンプルコード</small>
-
-動くコードが真
-
-.col-6[
-<small>
-```txt
-get-title
-├── package.json
-├── src
-│   ├── cli.ts
-│   └── main.ts
-└── sample
-    ├── package.json // ここから親のpackageをinstallする
-    ├── src
-    └── tsconfig.json
-```
-</small>
-]
-.col-6[
-<small>
-```json
-// package.json
-"dependencies": {
-  "get-title": "file:.."
-}
-```
-</small>
-]
-.col-12[
-<small>ビルドした後に、dependenciesを直で書いてインストールする</small>
-]
-
----
-
-# 依存関係を確認する
-
-「孤立したコード」や「循環参照」している箇所などをあぶり出す。構造的に不安定なところを検知する
-
-<https://github.com/sverweij/dependency-cruiser>
-
-![依存関係のグラフ](./images/dependencygraph.svg)
-
-参考：[dependency\-cruiserを使って依存関係を検証し潜在的なバグを潰す \- Qiita](https://qiita.com/akameco/items/e11023a59026c319b91b)
-
-
----
-
 # ドキュメント
 
 .col-6[
@@ -760,6 +767,18 @@ typedoc --out ./docs/ ./src
 .col-6[
 <img src="./images/typedoc.png" style="height: 250px;">
 ]
+
+---
+
+# 依存関係を確認する
+
+「孤立したコード」や「循環参照」している箇所などをあぶり出す。構造的に不安定なところを検知する
+
+<https://github.com/sverweij/dependency-cruiser>
+
+![依存関係のグラフ](./images/dependencygraph.svg)
+
+参考：[dependency\-cruiserを使って依存関係を検証し潜在的なバグを潰す \- Qiita](https://qiita.com/akameco/items/e11023a59026c319b91b)
 
 ---
 
@@ -806,6 +825,7 @@ class: impact
 * [dependency-cruiser](https://github.com/sverweij/dependency-cruiser)
 * [danger-js](https://github.com/danger/danger-js)
 * [node-install-local](https://github.com/nicojs/node-install-local)
+* [npm-run-all](https://github.com/mysticatea/npm-run-all)
 ]
 .col-6[
 * [meow](https://github.com/sindresorhus/meow)

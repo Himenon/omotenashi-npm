@@ -9,7 +9,7 @@ npm i . -g
 ```
 
 ```sh
-npm install -g Himenon/omotenashi-npm#master
+npm install -g [このプロジェクト]
 ```
 
 ## 使い方
