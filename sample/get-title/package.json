@@ -17,7 +17,8 @@
     "get-title": "./bin/cli.js"
   },
   "devDependencies": {
-    "jest": "^23.6.0"
+    "jest": "^23.6.0",
+    "merge": ">=1.2.1"
   },
   "dependencies": {
     "puppeteer": "^1.10.0"
