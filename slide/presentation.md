@@ -111,7 +111,7 @@ npm install -g web2pdf
 class: impact
 
 # お題
-## RLを入力するとサイトタイトルを取得するCLI
+## URLを入力するとサイトタイトルを取得するCLI
 
 まずは作ってみる
 

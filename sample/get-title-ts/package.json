@@ -7,7 +7,7 @@
   "scripts": {
     "start": "run-p *:watch",
     "cli": "node ./bin/cli.js https://github.com",
-    "test": "jest -c ./jest.config.json --detectOpenHandles",
+    "test": "jest -c ./jest.config.json --detectOpenHandles && yarn run cruiser",
     "test:watch": "yarn run test -- --watch",
     "prebuild": "yarn run clean",
     "cruiser": "dependency-cruiser --validate .dependency-cruiser.json --ts-config=./tsconfig.json src",

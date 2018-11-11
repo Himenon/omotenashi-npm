@@ -1,5 +1,13 @@
 import * as puppeteer from 'puppeteer';
 
+import { myname } from './hoge';
+
+myname();
+
+export function hogeName() {
+  console.log('hoge');
+}
+
 /**
  * ウェブサイトのURLから、該当サイトの「タイトル」を取得する
  * @param url 有効なURL
